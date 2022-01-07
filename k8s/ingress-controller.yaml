@@ -10,8 +10,10 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    external-dns.alpha.kubernetes.io/hostname: "weather.quangtuan.me"
     external-dns.alpha.kubernetes.io/target: quangtuan.me
     external-dns.alpha.kubernetes.io/ttl: "120"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   tls:
     - hosts:
