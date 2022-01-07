@@ -26,6 +26,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: frontend-svc
+                name: weather-monitor-frontend-svc
                 port:
                   number: 80
