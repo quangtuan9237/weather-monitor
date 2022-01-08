@@ -23,12 +23,11 @@ const CoverImgStyle = styled('img')({
   position: 'absolute',
 });
 
-export function WeatherCard({ post }) {
-  const { cover, title, localTime, currTemp, highTemp, lowTemp, weatherType, lon, lat } = post;
+export function WeatherCard({ data }: { data: any }) {
+  const { id, cover, title, localTime, currTemp, highTemp, lowTemp, weatherType, lon, lat } = data;
 
   const params = new URLSearchParams({
-    lon,
-    lat,
+    id,
   });
 
   return (

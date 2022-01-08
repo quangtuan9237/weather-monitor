@@ -5,6 +5,7 @@ import React from 'react';
 import { useWeathers } from '../api/useWeathers';
 import { WeatherCard } from '../components';
 
+import { Loading } from '@/components/Loading';
 import Page from '@/components/Page';
 import { useDebounce } from '@/hooks/useDebounce';
 
@@ -35,9 +36,7 @@ function formatTime(dt: number, tz = 0) {
 export function List() {
   const [search, setSearch] = React.useState('');
   const searchDebounce = useDebounce(search, 500);
-  const { data } = useWeathers({ search: searchDebounce });
-
-  console.log('DATA', data);
+  const { data, isLoading } = useWeathers({ search: searchDebounce });
 
   return (
     <Page title="Weathers">
@@ -52,30 +51,33 @@ export function List() {
             </InputAdornment>
           }
         />
-        <Grid container spacing={3}>
-          {data?.list?.length ? (
-            data.list.map((item) => (
-              <WeatherCard
-                key={item.id}
-                post={{
-                  title: item.name,
-                  localTime: formatTime(item.dt, item.timezone),
-                  weatherType: item.weather[0].main,
-                  highTemp: Math.round(item.main.temp_max),
-                  lowTemp: Math.round(item.main.temp_min),
-                  currTemp: Math.round(item.main.temp),
-                  cover: `/img/${item.weather[0].main}.jpg`,
-                  lat: item.coord.Lat,
-                  lon: item.coord.Lon,
-                }}
-              ></WeatherCard>
-            ))
-          ) : (
-            <Grid item>
-              <p>Không tìm thấy thành phố</p>
-            </Grid>
-          )}
-        </Grid>
+        {!isLoading ? (
+          <Grid container spacing={3}>
+            {data?.list?.length ? (
+              data.list.map((item) => (
+                <WeatherCard
+                  key={item.id}
+                  data={{
+                    id: item.id,
+                    title: item.name,
+                    localTime: formatTime(item.dt, item.timezone),
+                    weatherType: item.weather[0].main,
+                    highTemp: Math.round(item.main.temp_max),
+                    lowTemp: Math.round(item.main.temp_min),
+                    currTemp: Math.round(item.main.temp),
+                    cover: `/img/${item.weather[0].main}.jpg`,
+                  }}
+                ></WeatherCard>
+              ))
+            ) : (
+              <Grid item>
+                <p>Không tìm thấy thành phố</p>
+              </Grid>
+            )}
+          </Grid>
+        ) : (
+          <Loading type="center" />
+        )}
       </Container>
     </Page>
   );

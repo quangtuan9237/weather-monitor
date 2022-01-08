@@ -1,6 +1,8 @@
 export interface Coord {
-  Lon: number;
-  Lat: number;
+  Lon?: number;
+  Lat?: number;
+  Lon?: number;
+  Lat?: number;
 }
 
 export interface Weather {

@@ -1,10 +1,10 @@
-import { AccessAlarm } from '@mui/icons-material';
+import { Home } from '@mui/icons-material';
 
 const sidebarConfig = [
   {
-    title: 'dashboard',
-    path: '/dashboard/app',
-    icon: <AccessAlarm />,
+    title: 'Home',
+    path: '/',
+    icon: <Home />,
   },
 ];
 
